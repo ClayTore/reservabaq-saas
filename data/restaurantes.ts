@@ -1,0 +1,111 @@
+import type { Restaurante } from "@/lib/types";
+
+// Datos de ejemplo (restaurantes ficticios) mientras no hay backend.
+export const restaurantes: Restaurante[] = [
+  {
+    id: 1,
+    nombre: "Sazón Caribe",
+    tipoComida: "Costeña",
+    zona: "El Prado",
+    rangoPrecio: "$$",
+    descripcion: "Comida típica de la Costa: arroz de coco, pescado frito y patacón.",
+    direccion: "Cra. 54 #70-10, El Prado",
+    horario: "Lun a Dom · 11:00 a.m. - 9:00 p.m.",
+    vestimenta: "Casual",
+    whatsapp: "573000000001",
+    menu: [
+      { nombre: "Mojarra frita", descripcion: "Con arroz de coco y patacón", precio: 38000 },
+      { nombre: "Arroz de camarón", descripcion: "Porción para una persona", precio: 42000 },
+      { nombre: "Jugo de corozo", descripcion: "Natural, 16 oz", precio: 8000 },
+    ],
+  },
+  {
+    id: 2,
+    nombre: "Brasa del Norte",
+    tipoComida: "Parrilla",
+    zona: "Riomar",
+    rangoPrecio: "$$$",
+    descripcion: "Cortes a la parrilla y acompañantes de la casa.",
+    direccion: "Cl. 98 #52-20, Riomar",
+    horario: "Mar a Dom · 12:00 p.m. - 11:00 p.m.",
+    vestimenta: "Casual elegante",
+    whatsapp: "573000000002",
+    menu: [
+      { nombre: "Punta de anca", descripcion: "400 g con papa criolla", precio: 65000 },
+      { nombre: "Chorizo santarrosano", descripcion: "Con arepa", precio: 18000 },
+      { nombre: "Limonada de coco", descripcion: "16 oz", precio: 12000 },
+    ],
+  },
+  {
+    id: 3,
+    nombre: "Pasta Nostra",
+    tipoComida: "Italiana",
+    zona: "Alto Prado",
+    rangoPrecio: "$$",
+    descripcion: "Pastas frescas y pizzas al horno de leña.",
+    direccion: "Cra. 53 #76-45, Alto Prado",
+    horario: "Lun a Sáb · 12:00 p.m. - 10:00 p.m.",
+    vestimenta: "Casual",
+    whatsapp: "573000000003",
+    menu: [
+      { nombre: "Lasaña boloñesa", descripcion: "Receta de la casa", precio: 36000 },
+      { nombre: "Pizza margarita", descripcion: "Mediana, 6 porciones", precio: 40000 },
+      { nombre: "Tiramisú", descripcion: "Porción individual", precio: 15000 },
+    ],
+  },
+  {
+    id: 4,
+    nombre: "Sakura Roll",
+    tipoComida: "Japonesa",
+    zona: "Villa Country",
+    rangoPrecio: "$$$",
+    descripcion: "Sushi, ramen y cocina japonesa contemporánea.",
+    direccion: "Cl. 79 #50-30, Villa Country",
+    horario: "Mar a Dom · 12:00 p.m. - 10:00 p.m.",
+    vestimenta: "Casual elegante",
+    whatsapp: "573000000004",
+    menu: [
+      { nombre: "Roll acevichado", descripcion: "10 piezas", precio: 42000 },
+      { nombre: "Ramen tonkotsu", descripcion: "Caldo de cerdo y huevo", precio: 38000 },
+      { nombre: "Té verde", descripcion: "Caliente o frío", precio: 7000 },
+    ],
+  },
+  {
+    id: 5,
+    nombre: "La Esquina Veggie",
+    tipoComida: "Vegetariana",
+    zona: "Boston",
+    rangoPrecio: "$",
+    descripcion: "Bowls, wraps y jugos naturales, opciones veganas.",
+    direccion: "Cra. 41 #72-15, Boston",
+    horario: "Lun a Vie · 8:00 a.m. - 6:00 p.m.",
+    vestimenta: "Casual",
+    whatsapp: "573000000005",
+    menu: [
+      { nombre: "Bowl mediterráneo", descripcion: "Quinoa, garbanzos y hummus", precio: 24000 },
+      { nombre: "Wrap de falafel", descripcion: "Con salsa de yogur", precio: 20000 },
+      { nombre: "Jugo verde", descripcion: "Espinaca, piña y jengibre", precio: 9000 },
+    ],
+  },
+  {
+    id: 6,
+    nombre: "Mar y Tierra Centro",
+    tipoComida: "Costeña",
+    zona: "Centro",
+    rangoPrecio: "$",
+    descripcion: "Almuerzos ejecutivos y comida de mar a buen precio.",
+    direccion: "Cl. 35 #44-12, Centro",
+    horario: "Lun a Sáb · 11:00 a.m. - 4:00 p.m.",
+    vestimenta: "Casual",
+    whatsapp: "573000000006",
+    menu: [
+      { nombre: "Almuerzo ejecutivo", descripcion: "Sopa, seco y jugo", precio: 16000 },
+      { nombre: "Cazuela de mariscos", descripcion: "Con arroz blanco", precio: 35000 },
+      { nombre: "Kibbe", descripcion: "Unidad", precio: 5000 },
+    ],
+  },
+];
+
+export function obtenerRestaurante(id: number): Restaurante | undefined {
+  return restaurantes.find((r) => r.id === id);
+}
