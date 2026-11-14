@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { obtenerRestaurante, restaurantes } from "@/data/restaurantes";
+import MenuRestaurante from "@/components/MenuRestaurante";
 
 export const dynamicParams = false;
 
@@ -53,6 +54,8 @@ export default async function DetalleRestaurante({
           </div>
         ))}
       </div>
+
+      <MenuRestaurante menu={restaurante.menu} />
 
       <a
         href={linkWhatsapp}
