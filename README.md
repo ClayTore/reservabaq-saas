@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ReservaBaq
 
-## Getting Started
+SaaS to discover and book restaurants in Barranquilla, Colombia.
 
-First, run the development server:
+Diners can search restaurants by name, area or type of food, check the menu, schedule and dress code, and book a table. Restaurant owners get a private panel with a summary of their reservations.
+
+**Live site:** coming soon (custom domain pointing to an AWS Application Load Balancer)
+
+## Features
+
+- Landing page with a short explanation of how it works
+- Restaurant catalog with search by name or area and filter by type of food
+- Restaurant detail page with schedule, dress code, address and menu with prices
+- Table reservation form with validation (no past dates, 10-digit phone)
+- "Mis reservas" page to see and cancel bookings
+- Demo login and a protected panel with stats and upcoming reservations
+
+## Tech stack
+
+- [Next.js 16](https://nextjs.org/) (App Router, static export) with React and TypeScript
+- Tailwind CSS v4
+- ESLint
+- GitHub Actions for CI/CD
+- AWS: S3, EC2 with Auto Scaling, Application Load Balancer
+
+## Getting started
+
+Requirements: Node.js 20 or newer and npm.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/ClayTore/reservabaq-saas.git
+cd reservabaq-saas
+npm install
+npm run juju
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Demo login
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Email | Password |
+|---|---|
+| demo@reservabaq.com | reservabaq2026 |
 
-## Learn More
+> This login is only a demo that runs in the browser. It is not real security. In production we would use a service like Amazon Cognito.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | What it does |
+|---|---|
+| `npm run juju` | Starts the development server |
+| `npm run lint` | Checks the code with ESLint |
+| `npm run build` | Builds the static site into the `out/` folder |
