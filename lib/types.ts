@@ -17,3 +17,15 @@ export type Restaurante = {
   whatsapp: string;
   menu: PlatoMenu[];
 };
+
+export type Reserva = {
+  id: number;
+  restauranteId: number;
+  restauranteNombre: string;
+  nombre: string;
+  telefono: string;
+  fecha: string;
+  hora: string;
+  personas: number;
+  creadaEn: string;
+};

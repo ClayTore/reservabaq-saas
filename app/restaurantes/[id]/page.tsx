@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { obtenerRestaurante, restaurantes } from "@/data/restaurantes";
 import MenuRestaurante from "@/components/MenuRestaurante";
+import FormularioReserva from "@/components/FormularioReserva";
 
 export const dynamicParams = false;
 
@@ -57,14 +58,22 @@ export default async function DetalleRestaurante({
 
       <MenuRestaurante menu={restaurante.menu} />
 
-      <a
-        href={linkWhatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-block rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600"
-      >
-        Reservar por WhatsApp
-      </a>
+      <FormularioReserva
+        restauranteId={restaurante.id}
+        restauranteNombre={restaurante.nombre}
+      />
+
+      <p className="text-sm text-zinc-500">
+        ¿Prefieres escribir?{" "}
+        <a
+          href={linkWhatsapp}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-emerald-600 hover:underline"
+        >
+          Reservar por WhatsApp
+        </a>
+      </p>
     </main>
   );
 }
