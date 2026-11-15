@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { guardarReserva } from "@/lib/reservas";
+import Link from "next/link";
+import { guardarReserva, textoPersonas } from "@/lib/reservas";
 
 type Props = {
   restauranteId: number;
@@ -56,18 +57,24 @@ export default function FormularioReserva({
       <div className="mb-8 rounded-lg border border-emerald-500 p-4">
         <p className="font-semibold text-emerald-600">¡Reserva confirmada!</p>
         <p className="mt-1 text-sm text-zinc-500">
-          Mesa para {personas} en {restauranteNombre} el {fecha} a las {hora}.
+          Mesa para {textoPersonas(personas)} en {restauranteNombre} el {fecha} a
+          las {hora}.
         </p>
-        <button
-          onClick={() => {
-            setConfirmada(false);
-            setFecha("");
-            setHora("");
-          }}
-          className="mt-3 text-sm text-emerald-600 hover:underline"
-        >
-          Hacer otra reserva
-        </button>
+        <div className="mt-3 flex gap-4 text-sm">
+          <Link href="/mis-reservas" className="text-emerald-600 hover:underline">
+            Ver mis reservas
+          </Link>
+          <button
+            onClick={() => {
+              setConfirmada(false);
+              setFecha("");
+              setHora("");
+            }}
+            className="text-emerald-600 hover:underline"
+          >
+            Hacer otra reserva
+          </button>
+        </div>
       </div>
     );
   }
@@ -111,7 +118,7 @@ export default function FormularioReserva({
         >
           {opcionesPersonas.map((n) => (
             <option key={n} value={n} className="text-black">
-              {n} {n === 1 ? "persona" : "personas"}
+              {textoPersonas(n)}
             </option>
           ))}
         </select>
