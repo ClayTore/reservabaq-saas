@@ -85,6 +85,10 @@ The workflow in `.github/workflows/deploy.yml` runs on every push to `main`:
 
 The EC2 instances behind the load balancer sync the files from S3 every minute, so the new version goes live without touching the servers. AWS credentials are stored as GitHub secrets, never in the code.
 
+## Architecture
+
+See [docs/architecture.md](docs/architecture.md) for the AWS diagram and a description of each component.
+
 ## Team
 
 | Name | GitHub |
