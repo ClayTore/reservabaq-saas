@@ -45,3 +45,7 @@ export function suscribirReservas(callback: () => void) {
 export function textoPersonas(n: number): string {
   return `${n} ${n === 1 ? "persona" : "personas"}`;
 }
+
+export function fechaHoy(): string {
+  return new Date().toLocaleDateString("en-CA");
+}

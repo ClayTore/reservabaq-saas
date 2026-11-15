@@ -2,6 +2,7 @@
 
 import AuthGuard from "@/components/AuthGuard";
 import TarjetaEstadistica from "@/components/TarjetaEstadistica";
+import { fechaHoy, textoPersonas } from "@/lib/reservas";
 import { useReservas } from "@/lib/useReservas";
 
 export default function Panel() {
@@ -16,6 +17,13 @@ export default function Panel() {
     { titulo: "Restaurantes", valor: restaurantes },
   ];
 
+  const hoy = fechaHoy();
+  const proximas = reservas
+    .filter((r) => r.fecha >= hoy)
+    .sort((a, b) =>
+      `${a.fecha} ${a.hora}`.localeCompare(`${b.fecha} ${b.hora}`)
+    );
+
   return (
     <AuthGuard>
       <main className="mx-auto w-full max-w-2xl p-6">
@@ -29,6 +37,24 @@ export default function Panel() {
             <TarjetaEstadistica key={e.titulo} titulo={e.titulo} valor={e.valor} />
           ))}
         </div>
+
+        <h2 className="mb-3 text-lg font-semibold">Próximas reservas</h2>
+        {proximas.length === 0 ? (
+          <p className="text-sm text-zinc-500">No hay reservas próximas.</p>
+        ) : (
+          <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200">
+            {proximas.map((r) => (
+              <li key={r.id} className="p-4">
+                <p className="font-medium">
+                  {r.fecha} · {r.hora} — {r.restauranteNombre}
+                </p>
+                <p className="text-sm text-zinc-500">
+                  {textoPersonas(r.personas)} · {r.nombre} · {r.telefono}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
     </AuthGuard>
   );
