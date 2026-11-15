@@ -8,6 +8,7 @@ import { useSesion } from "@/lib/useSesion";
 const enlaces = [
   { href: "/", texto: "Inicio" },
   { href: "/restaurantes", texto: "Restaurantes" },
+  { href: "/mis-reservas", texto: "Mis reservas" },
 ];
 
 export default function Navbar() {
@@ -49,4 +50,4 @@ export default function Navbar() {
       </nav>
     </header>
   );
-}
+} 
