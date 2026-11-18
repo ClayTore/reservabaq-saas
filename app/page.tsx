@@ -1,52 +1,91 @@
 import Link from "next/link";
+import { restaurantes } from "@/data/restaurantes";
+import { botonPrimario, botonSecundario, contenedor, tarjeta } from "@/lib/estilos";
 
 const pasos = [
   {
+    numero: "01",
     titulo: "Busca",
     texto: "Filtra por tipo de comida, zona o nombre del restaurante.",
   },
   {
+    numero: "02",
     titulo: "Conoce",
     texto: "Mira el menú, los precios, el horario y el código de vestimenta.",
   },
   {
+    numero: "03",
     titulo: "Reserva",
     texto: "Separa tu mesa en pocos pasos, sin llamadas.",
   },
 ];
 
 export default function Home() {
+  const zonas = new Set(restaurantes.map((r) => r.zona)).size;
+
+  const datos = [
+    { valor: restaurantes.length, texto: "restaurantes" },
+    { valor: zonas, texto: "zonas de la ciudad" },
+    { valor: "24/7", texto: "reservas en línea" },
+  ];
+
   return (
-    <main className="mx-auto max-w-4xl px-6 py-10">
-      <section className="mb-10 rounded-3xl bg-emerald-700 px-8 py-12 text-white">
-        <h1 className="text-3xl font-semibold sm:text-4xl">
-          Encuentra tu próximo restaurante en Barranquilla
-        </h1>
-        <p className="mt-3 max-w-md text-emerald-50">
-          Busca por tipo de comida, zona o nombre, y reserva tu mesa en minutos.
-        </p>
-        <Link
-          href="/restaurantes"
-          className="mt-6 inline-block rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50"
-        >
-          Explorar restaurantes
-        </Link>
-      </section>
-
-      <section className="grid gap-4 sm:grid-cols-3">
-        {pasos.map((paso) => (
-          <div key={paso.titulo} className="rounded-xl border border-zinc-200 p-5">
-            <h2 className="mb-1 font-semibold text-emerald-600">{paso.titulo}</h2>
-            <p className="text-sm text-zinc-500">{paso.texto}</p>
+    <main className={`${contenedor} flex flex-col gap-16 py-12 sm:py-16`}>
+      <section className="grid items-center gap-10 md:grid-cols-[1.3fr_1fr]">
+        <div>
+          <span className="inline-block rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-primary">
+            Barranquilla · Restaurantes
+          </span>
+          <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            Encuentra tu próximo <span className="text-primary">restaurante</span>{" "}
+            en Barranquilla
+          </h1>
+          <p className="mt-4 max-w-md text-lg text-muted">
+            Busca por tipo de comida, zona o nombre, y reserva tu mesa en minutos.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href="/restaurantes" className={botonPrimario}>
+              Explorar restaurantes
+            </Link>
+            <Link href="/mis-reservas" className={botonSecundario}>
+              Ver mis reservas
+            </Link>
           </div>
-        ))}
+        </div>
+
+        <div className={`${tarjeta} grid gap-5 p-6`}>
+          {datos.map((dato) => (
+            <div key={dato.texto} className="flex items-baseline gap-3">
+              <span className="text-3xl font-bold text-primary">{dato.valor}</span>
+              <span className="text-sm text-muted">{dato.texto}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
-      <section className="mt-10 rounded-xl border border-zinc-200 p-6">
-        <h2 className="text-xl font-semibold">¿Tienes un restaurante?</h2>
-        <p className="mt-2 text-sm text-zinc-500">
-          Publica tu menú, horarios y recibe reservas con una suscripción mensual.
-        </p>
+      <section>
+        <h2 className="text-2xl font-semibold tracking-tight">¿Cómo funciona?</h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {pasos.map((paso) => (
+            <div key={paso.numero} className={`${tarjeta} p-6`}>
+              <span className="text-sm font-semibold text-accent">{paso.numero}</span>
+              <h3 className="mt-2 text-lg font-semibold">{paso.titulo}</h3>
+              <p className="mt-1 text-sm text-muted">{paso.texto}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="flex flex-col items-start gap-4 rounded-2xl border border-border bg-primary-soft p-8 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">¿Tienes un restaurante?</h2>
+          <p className="mt-1 text-sm text-muted">
+            Publica tu menú y horarios, y recibe reservas con una suscripción mensual.
+          </p>
+        </div>
+        <Link href="/login" className={botonPrimario}>
+          Ir al panel
+        </Link>
       </section>
     </main>
   );
