@@ -1,59 +1,73 @@
 "use client";
 
 import { useState } from "react";
+import RestaurantCard from "@/components/RestaurantCard";
+import { campo, tarjeta } from "@/lib/estilos";
 import type { Restaurante } from "@/lib/types";
-import RestaurantCard from "./RestaurantCard";
 
-export default function ListaRestaurantes({ restaurantes }: { restaurantes: Restaurante[] }) {
+function clasePildora(activa: boolean) {
+  return activa
+    ? "rounded-full bg-primary px-4 py-1.5 text-sm font-medium text-on-primary"
+    : "rounded-full border border-border px-4 py-1.5 text-sm text-muted transition hover:border-primary hover:text-primary";
+}
+
+export default function ListaRestaurantes({
+  restaurantes,
+}: {
+  restaurantes: Restaurante[];
+}) {
   const [busqueda, setBusqueda] = useState("");
   const [tipoSeleccionado, setTipoSeleccionado] = useState("Todos");
 
   const tiposDeComida = ["Todos", ...new Set(restaurantes.map((r) => r.tipoComida))];
+  const texto = busqueda.trim().toLowerCase();
 
-  const texto = busqueda.toLowerCase();
-  const restaurantesFiltrados = restaurantes.filter((r) => {
-    const coincideTipo = tipoSeleccionado === "Todos" || r.tipoComida === tipoSeleccionado;
-    const coincideBusqueda =
+  const filtrados = restaurantes.filter((r) => {
+    const coincideTexto =
       r.nombre.toLowerCase().includes(texto) || r.zona.toLowerCase().includes(texto);
-    return coincideTipo && coincideBusqueda;
+    const coincideTipo = tipoSeleccionado === "Todos" || r.tipoComida === tipoSeleccionado;
+    return coincideTexto && coincideTipo;
   });
 
   return (
     <div>
       <input
-        type="text"
+        type="search"
+        placeholder="Busca por nombre o zona..."
         value={busqueda}
         onChange={(e) => setBusqueda(e.target.value)}
-        placeholder="Buscar por nombre o zona..."
-        className="mb-4 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-emerald-500"
+        className={campo}
       />
 
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         {tiposDeComida.map((tipo) => (
           <button
             key={tipo}
+            type="button"
             onClick={() => setTipoSeleccionado(tipo)}
-            className={`rounded-full border px-3 py-1 text-xs ${
-              tipoSeleccionado === tipo
-                ? "border-emerald-500 bg-emerald-500 text-white"
-                : "border-zinc-300 text-zinc-600"
-            }`}
+            className={clasePildora(tipo === tipoSeleccionado)}
           >
             {tipo}
           </button>
         ))}
       </div>
 
-      <ul className="flex flex-col gap-4">
-        {restaurantesFiltrados.map((r) => (
-          <li key={r.id}>
-            <RestaurantCard restaurante={r} />
-          </li>
-        ))}
-      </ul>
+      <p className="mt-6 text-sm text-muted">
+        {filtrados.length} {filtrados.length === 1 ? "resultado" : "resultados"}
+      </p>
 
-      {restaurantesFiltrados.length === 0 && (
-        <p className="text-sm text-zinc-400">No hay restaurantes que coincidan.</p>
+      {filtrados.length === 0 ? (
+        <div className={`${tarjeta} mt-3 p-8 text-center text-muted`}>
+          No hay restaurantes que coincidan.
+        </div>
+      ) : (
+        <ul className="mt-3 grid gap-4 sm:grid-cols-2">
+          {filtrados.map((restaurante) => (
+            <li key={restaurante.id}>
+              <RestaurantCard restaurante={restaurante} />
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

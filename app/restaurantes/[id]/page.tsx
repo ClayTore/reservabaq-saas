@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { obtenerRestaurante, restaurantes } from "@/data/restaurantes";
-import MenuRestaurante from "@/components/MenuRestaurante";
 import FormularioReserva from "@/components/FormularioReserva";
+import MenuRestaurante from "@/components/MenuRestaurante";
+import { obtenerRestaurante, restaurantes } from "@/data/restaurantes";
+import { chip, contenedor, tarjeta } from "@/lib/estilos";
 
 export const dynamicParams = false;
 
@@ -31,49 +32,55 @@ export default async function DetalleRestaurante({
   const linkWhatsapp = `https://wa.me/${restaurante.whatsapp}`;
 
   return (
-    <main className="mx-auto w-full max-w-2xl p-6">
-      <Link
-        href="/restaurantes"
-        className="text-sm text-emerald-600 hover:underline"
-      >
-        ← Volver a la lista
+    <main className={`${contenedor} py-10`}>
+      <Link href="/restaurantes" className="text-sm text-muted transition hover:text-primary">
+        ← Volver a restaurantes
       </Link>
 
-      <h1 className="mb-2 mt-4 text-2xl font-bold">{restaurante.nombre}</h1>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <h1 className="text-3xl font-bold tracking-tight">{restaurante.nombre}</h1>
+        <span className="text-lg font-semibold text-accent">{restaurante.rangoPrecio}</span>
+      </div>
 
-      <p className="mb-6 text-sm text-zinc-500">
-        {restaurante.tipoComida} · {restaurante.zona} · {restaurante.rangoPrecio}
-      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <span className={chip}>{restaurante.tipoComida}</span>
+        <span className={chip}>{restaurante.zona}</span>
+      </div>
 
-      <p className="mb-6 text-zinc-600">{restaurante.descripcion}</p>
+      <p className="mt-4 max-w-2xl text-muted">{restaurante.descripcion}</p>
 
-      <div className="mb-8 grid grid-cols-1 gap-4 text-sm sm:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
         {datos.map((dato) => (
-          <div key={dato.titulo}>
-            <p className="font-semibold">{dato.titulo}</p>
-            <p className="text-zinc-500">{dato.valor}</p>
+          <div key={dato.titulo} className={`${tarjeta} p-4`}>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted">
+              {dato.titulo}
+            </p>
+            <p className="mt-1 text-sm font-medium">{dato.valor}</p>
           </div>
         ))}
       </div>
 
-      <MenuRestaurante menu={restaurante.menu} />
+      <div className="mt-8 grid items-start gap-6 md:grid-cols-[1.4fr_1fr]">
+        <MenuRestaurante menu={restaurante.menu} />
 
-      <FormularioReserva
-        restauranteId={restaurante.id}
-        restauranteNombre={restaurante.nombre}
-      />
-
-      <p className="text-sm text-zinc-500">
-        ¿Prefieres escribir?{" "}
-        <a
-          href={linkWhatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-emerald-600 hover:underline"
-        >
-          Reservar por WhatsApp
-        </a>
-      </p>
+        <div className="flex flex-col gap-3 md:sticky md:top-24">
+          <FormularioReserva
+            restauranteId={restaurante.id}
+            restauranteNombre={restaurante.nombre}
+          />
+          <p className="text-center text-sm text-muted">
+            ¿Prefieres escribir?{" "}
+            <a
+              href={linkWhatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary hover:underline"
+            >
+              Reservar por WhatsApp
+            </a>
+          </p>
+        </div>
+      </div>
     </main>
   );
 }
