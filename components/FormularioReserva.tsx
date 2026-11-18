@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { botonPrimario, campo, tarjeta } from "@/lib/estilos";
 import { guardarReserva, textoPersonas } from "@/lib/reservas";
 
 type Props = {
@@ -9,15 +10,9 @@ type Props = {
   restauranteNombre: string;
 };
 
-const claseInput =
-  "w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none";
-
 const opcionesPersonas = Array.from({ length: 8 }, (_, i) => i + 1);
 
-export default function FormularioReserva({
-  restauranteId,
-  restauranteNombre,
-}: Props) {
+export default function FormularioReserva({ restauranteId, restauranteNombre }: Props) {
   const [nombre, setNombre] = useState("");
   const [telefono, setTelefono] = useState("");
   const [fecha, setFecha] = useState("");
@@ -54,23 +49,24 @@ export default function FormularioReserva({
 
   if (confirmada) {
     return (
-      <div className="mb-8 rounded-lg border border-emerald-500 p-4">
-        <p className="font-semibold text-emerald-600">¡Reserva confirmada!</p>
-        <p className="mt-1 text-sm text-zinc-500">
-          Mesa para {textoPersonas(personas)} en {restauranteNombre} el {fecha} a
-          las {hora}.
+      <div className="rounded-2xl border border-primary bg-primary-soft p-6">
+        <p className="text-lg font-semibold text-primary">¡Reserva confirmada!</p>
+        <p className="mt-1 text-sm text-muted">
+          Mesa para {textoPersonas(personas)} en {restauranteNombre} el {fecha} a las{" "}
+          {hora}.
         </p>
-        <div className="mt-3 flex gap-4 text-sm">
-          <Link href="/mis-reservas" className="text-emerald-600 hover:underline">
+        <div className="mt-4 flex flex-wrap gap-4 text-sm font-medium">
+          <Link href="/mis-reservas" className="text-primary hover:underline">
             Ver mis reservas
           </Link>
           <button
+            type="button"
             onClick={() => {
               setConfirmada(false);
               setFecha("");
               setHora("");
             }}
-            className="text-emerald-600 hover:underline"
+            className="text-primary hover:underline"
           >
             Hacer otra reserva
           </button>
@@ -80,55 +76,54 @@ export default function FormularioReserva({
   }
 
   return (
-    <section className="mb-8">
-      <h2 className="mb-3 text-lg font-semibold">Reservar mesa</h2>
-      <form onSubmit={manejarEnvio} className="grid gap-3 sm:grid-cols-2">
+    <section className={`${tarjeta} p-6`}>
+      <h2 className="text-lg font-semibold">Reservar mesa</h2>
+      <form onSubmit={manejarEnvio} className="mt-4 grid gap-3">
         <input
           required
           placeholder="Tu nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
-          className={claseInput}
+          className={campo}
         />
         <input
           required
           placeholder="Teléfono (10 dígitos)"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
-          className={claseInput}
+          className={campo}
         />
-        <input
-          required
-          type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-          className={claseInput}
-        />
-        <input
-          required
-          type="time"
-          value={hora}
-          onChange={(e) => setHora(e.target.value)}
-          className={claseInput}
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <input
+            required
+            type="date"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+            className={campo}
+          />
+          <input
+            required
+            type="time"
+            value={hora}
+            onChange={(e) => setHora(e.target.value)}
+            className={campo}
+          />
+        </div>
         <select
           value={personas}
           onChange={(e) => setPersonas(Number(e.target.value))}
-          className={claseInput}
+          className={campo}
         >
           {opcionesPersonas.map((n) => (
-            <option key={n} value={n} className="text-black">
+            <option key={n} value={n}>
               {textoPersonas(n)}
             </option>
           ))}
         </select>
-        <button
-          type="submit"
-          className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600"
-        >
+        {error && <p className="text-sm text-red-500">{error}</p>}
+        <button type="submit" className={`${botonPrimario} mt-1 w-full`}>
           Confirmar reserva
         </button>
-        {error && <p className="text-sm text-red-500 sm:col-span-2">{error}</p>}
       </form>
     </section>
   );
