@@ -8,8 +8,27 @@ export function leerReservasGuardadas(): string {
   return localStorage.getItem(CLAVE_RESERVAS) ?? "[]";
 }
 
+// Si los datos guardados están dañados o fueron editados a mano, se ignoran
+export function parsearReservas(texto: string): Reserva[] {
+  try {
+    const datos: unknown = JSON.parse(texto);
+    if (!Array.isArray(datos)) return [];
+    return datos.filter(
+      (r): r is Reserva =>
+        typeof r === "object" &&
+        r !== null &&
+        typeof r.id === "number" &&
+        typeof r.restauranteNombre === "string" &&
+        /^\d{4}-\d{2}-\d{2}$/.test(r.fecha) &&
+        /^\d{2}:\d{2}$/.test(r.hora)
+    );
+  } catch {
+    return [];
+  }
+}
+
 export function obtenerReservas(): Reserva[] {
-  return JSON.parse(leerReservasGuardadas()) as Reserva[];
+  return parsearReservas(leerReservasGuardadas());
 }
 
 function escribirReservas(reservas: Reserva[]) {
@@ -48,4 +67,15 @@ export function textoPersonas(n: number): string {
 
 export function fechaHoy(): string {
   return new Date().toLocaleDateString("en-CA");
+}
+export function esPasada(reserva: Reserva, ahora = new Date()): boolean {
+  const [a, m, d] = reserva.fecha.split("-").map(Number);
+  const [h, min] = reserva.hora.split(":").map(Number);
+  return new Date(a, m - 1, d, h, min) < ahora;
+}
+
+export function ordenarPorFecha(reservas: Reserva[]): Reserva[] {
+  return [...reservas].sort((a, b) =>
+    `${a.fecha} ${a.hora}`.localeCompare(`${b.fecha} ${b.hora}`)
+  );
 }

@@ -63,11 +63,8 @@ export default async function DetalleRestaurante({
       <div className="mt-8 grid items-start gap-6 md:grid-cols-[1.4fr_1fr]">
         <MenuRestaurante menu={restaurante.menu} />
 
-        <div className="flex flex-col gap-3 md:sticky md:top-24">
-          <FormularioReserva
-            restauranteId={restaurante.id}
-            restauranteNombre={restaurante.nombre}
-          />
+      <div className="flex min-w-0 flex-col gap-3 md:sticky md:top-24">
+          <FormularioReserva restaurante={restaurante} />
           <p className="text-center text-sm text-muted">
             ¿Prefieres escribir?{" "}
             <a
