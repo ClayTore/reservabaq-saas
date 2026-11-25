@@ -13,6 +13,10 @@ export type Restaurante = {
   descripcion: string;
   direccion: string;
   horario: string;
+  diasAbierto: number[]; // 0 = domingo ... 6 = sábado
+  apertura: string; // "HH:MM" en formato 24 h
+  cierre: string;
+  capacidadMaxima: number; // personas por reserva
   vestimenta: string;
   whatsapp: string;
   menu: PlatoMenu[];
