@@ -1,5 +1,5 @@
 import { useMemo, useSyncExternalStore } from "react";
-import { leerReservasGuardadas, suscribirReservas } from "@/lib/reservas";
+import { leerReservasGuardadas, parsearReservas, suscribirReservas } from "@/lib/reservas";
 import type { Reserva } from "@/lib/types";
 
 export function useReservas(): Reserva[] {
@@ -8,5 +8,5 @@ export function useReservas(): Reserva[] {
     leerReservasGuardadas,
     () => "[]"
   );
-  return useMemo(() => JSON.parse(guardadas) as Reserva[], [guardadas]);
+  return useMemo(() => parsearReservas(guardadas), [guardadas]);
 }

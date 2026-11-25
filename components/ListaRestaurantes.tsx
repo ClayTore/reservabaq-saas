@@ -33,9 +33,11 @@ export default function ListaRestaurantes({
     <div>
       <input
         type="search"
+        maxLength={50}
+        aria-label="Buscar restaurante por nombre o zona"
         placeholder="Busca por nombre o zona..."
         value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
+        onChange={(e) => setBusqueda(e.target.value.replace(/[<>{}]/g, ""))}
         className={campo}
       />
 
