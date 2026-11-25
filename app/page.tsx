@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CarruselHero from "@/components/CarruselHero";
 import { restaurantes } from "@/data/restaurantes";
 import { botonPrimario, botonSecundario, contenedor, tarjeta } from "@/lib/estilos";
 
@@ -51,16 +52,18 @@ export default function Home() {
               Ver mis reservas
             </Link>
           </div>
+
+          <dl className="mt-10 flex flex-wrap gap-x-8 gap-y-4">
+            {datos.map((dato) => (
+              <div key={dato.texto}>
+                <dt className="text-sm text-muted">{dato.texto}</dt>
+                <dd className="text-2xl font-bold text-primary">{dato.valor}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
-        <div className={`${tarjeta} grid gap-5 p-6`}>
-          {datos.map((dato) => (
-            <div key={dato.texto} className="flex items-baseline gap-3">
-              <span className="text-3xl font-bold text-primary">{dato.valor}</span>
-              <span className="text-sm text-muted">{dato.texto}</span>
-            </div>
-          ))}
-        </div>
+        <CarruselHero />
       </section>
 
       <section>
