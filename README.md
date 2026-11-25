@@ -4,7 +4,7 @@ SaaS to discover and book restaurants in Barranquilla, Colombia.
 
 Diners can search restaurants by name, area or type of food, check the menu, schedule and dress code, and book a table. Restaurant owners get a private panel with a summary of their reservations.
 
-**Live site:** coming soon (custom domain pointing to an AWS Application Load Balancer)
+**Live site:** http://reservabaq.online
 
 ## Features
 
