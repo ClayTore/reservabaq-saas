@@ -8,7 +8,6 @@ export function leerReservasGuardadas(): string {
   return localStorage.getItem(CLAVE_RESERVAS) ?? "[]";
 }
 
-// Si los datos guardados están dañados o fueron editados a mano, se ignoran
 export function parsearReservas(texto: string): Reserva[] {
   try {
     const datos: unknown = JSON.parse(texto);

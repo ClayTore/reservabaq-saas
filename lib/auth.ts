@@ -1,8 +1,6 @@
 const CLAVE_SESION = "reservabaq_sesion";
 const EVENTO_SESION = "reservabaq-sesion";
 
-// Usuario de demostración: el sitio es estático y no tiene backend.
-// No es un login seguro; en producción se usaría un servicio como Amazon Cognito.
 const USUARIO_DEMO = { correo: "demo@reservabaq.com", clave: "reservabaq2026" };
 
 export function iniciarSesion(correo: string, clave: string): boolean {

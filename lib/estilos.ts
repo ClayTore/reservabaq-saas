@@ -1,5 +1,3 @@
-// Clases reutilizables para que todas las páginas se vean iguales (DRY)
-
 export const contenedor = "mx-auto w-full max-w-5xl px-6";
 
 export const tarjeta = "rounded-2xl border border-border bg-surface shadow-sm";
