@@ -1,11 +1,10 @@
 import type { Restaurante } from "@/lib/types";
 
-// Funciones para calcular qué días y horas se puede reservar en cada restaurante.
 
-export const DIAS_RESERVA = 14; // se puede reservar hasta dos semanas adelante
+export const DIAS_RESERVA = 14;
 const MINUTOS_ENTRE_TURNOS = 30;
-const MINUTOS_ANTES_DE_CERRAR = 60; // la última reserva es 1 hora antes del cierre
-const MINUTOS_DE_ANTICIPACION = 60; // para hoy, mínimo 1 hora desde ahora
+const MINUTOS_ANTES_DE_CERRAR = 60;
+const MINUTOS_DE_ANTICIPACION = 60;
 
 function aMinutos(hora: string): number {
   const [h, m] = hora.split(":").map(Number);
@@ -19,7 +18,7 @@ function aHora(minutos: number): string {
 }
 
 export function fechaISO(fecha: Date): string {
-  return fecha.toLocaleDateString("en-CA"); // AAAA-MM-DD en hora local
+  return fecha.toLocaleDateString("en-CA");
 }
 
 export function textoHora(hora: string): string {
@@ -42,7 +41,6 @@ export function abreEseDia(restaurante: Restaurante, fecha: Date): boolean {
   return restaurante.diasAbierto.includes(fecha.getDay());
 }
 
-// Los próximos días (desde hoy), marcando cuáles abre el restaurante
 export function proximosDias(restaurante: Restaurante, ahora = new Date()) {
   return Array.from({ length: DIAS_RESERVA }, (_, i) => {
     const fecha = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() + i);
@@ -56,7 +54,6 @@ export function proximosDias(restaurante: Restaurante, ahora = new Date()) {
   });
 }
 
-// Horas disponibles para una fecha: de la apertura a 1 hora antes del cierre, cada 30 min
 export function turnosDisponibles(restaurante: Restaurante, fecha: string, ahora = new Date()): string[] {
   const inicio = aMinutos(restaurante.apertura);
   const fin = aMinutos(restaurante.cierre) - MINUTOS_ANTES_DE_CERRAR;

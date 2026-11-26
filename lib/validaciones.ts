@@ -1,10 +1,6 @@
-// Reglas de validación compartidas por los formularios (DRY).
-// Cada función devuelve un mensaje de error, o "" si el valor es válido.
-
 const SOLO_LETRAS = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]+$/;
 const CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-// Al escribir: quita lo que no se permite en cada campo
 export function limpiarNombre(valor: string): string {
   return valor.replace(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ' ]/g, "").replace(/\s{2,}/g, " ");
 }
@@ -24,8 +20,6 @@ export function validarNombre(nombre: string): string {
   return "";
 }
 
-// Colombia: celular de 10 dígitos que empieza por 3.
-// Otro país: + seguido del código del país y el número (8 a 15 dígitos en total).
 export function validarTelefono(telefono: string): string {
   const sinEspacios = telefono.replace(/\s/g, "");
   if (!sinEspacios) return "Escribe tu número de teléfono.";

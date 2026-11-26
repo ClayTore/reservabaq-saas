@@ -1,6 +1,5 @@
 import type { Restaurante } from "@/lib/types";
 
-// Datos de ejemplo (restaurantes ficticios) mientras no hay backend.
 export const restaurantes: Restaurante[] = [
   {
     id: 1,
