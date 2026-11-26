@@ -9,7 +9,6 @@ type Props = {
   children: ReactNode;
 };
 
-// Etiqueta + campo + mensaje de error, igual en todos los formularios
 export default function CampoFormulario({ id, titulo, error, ayuda, children }: Props) {
   return (
     <div>

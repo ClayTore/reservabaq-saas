@@ -38,7 +38,6 @@ export default function Navbar() {
     router.push("/");
   }
 
-  // Los mismos enlaces para la versión de PC y la de celular (DRY)
   const todosLosEnlaces = sesion ? [...enlaces, { href: "/panel", texto: "Panel" }] : enlaces;
 
   return (
@@ -48,7 +47,6 @@ export default function Navbar() {
           ReservaBaq
         </Link>
 
-        {/* PC: igual que antes */}
         <div className="hidden items-center gap-6 text-sm md:flex">
           {todosLosEnlaces.map((enlace) => (
             <Link key={enlace.href} href={enlace.href} className={claseEnlace(estaActivo(enlace.href))}>
@@ -67,7 +65,6 @@ export default function Navbar() {
           <ThemeToggle />
         </div>
 
-        {/* Celular: tema + botón de menú */}
         <div className="flex items-center gap-3 md:hidden">
           <ThemeToggle />
           <button

@@ -19,7 +19,6 @@ export function suscribirTema(callback: () => void) {
   return () => window.removeEventListener(EVENTO_TEMA, callback);
 }
 
-// Se ejecuta antes de pintar la página para que no parpadee en blanco
 export const scriptTemaInicial = `(function () {
   try {
     var guardado = localStorage.getItem("${CLAVE_TEMA}");
