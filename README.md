@@ -8,12 +8,14 @@ Diners can search restaurants by name, area or type of food, check the menu, sch
 
 ## Features
 
-- Landing page with a short explanation of how it works
+- Landing page with a food photo carousel
 - Restaurant catalog with search by name or area and filter by type of food
 - Restaurant detail page with schedule, dress code, address and menu with prices
-- Table reservation form with validation (no past dates, 10-digit phone)
-- "Mis reservas" page to see and cancel bookings
-- Demo login and a protected panel with stats and upcoming reservations
+- Table reservation: pick a day (next 14 days) and a time slot based on each restaurant's hours
+- Field validation: name only letters, phone only digits (or + for other countries)
+- "Mis reservas" page with upcoming and past bookings, and a confirmation before cancelling
+- Demo login (blocked after 5 wrong attempts) and a protected panel with filters and stats
+- Light/dark theme, mobile menu and a custom 404 page
 
 ## Tech stack
 
@@ -52,14 +54,30 @@ Then open http://localhost:3000.
 | `npm run lint` | Checks the code with ESLint |
 | `npm run build` | Builds the static site into the `out/` folder |
 
+## Build and deploy
+
+Build the static site locally:
+
+```bash
+npm run lint
+npm run build
+```
+
+The site is generated in the `out/` folder.
+
+To deploy, open a pull request from `develop` to `main`. When it is merged, GitHub Actions builds the site and uploads `out/` to S3. The EC2 instances pick up the new version within a minute.
+
+Before deploying from AWS Academy, update the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` and `AWS_SESSION_TOKEN` secrets, because the lab credentials change every session.
+
 ## Project structure
 
 ```
 app/             Pages (landing, restaurantes, restaurantes/[id], mis-reservas, login, panel)
 components/      Reusable UI components (Navbar, RestaurantCard, FormularioReserva, ...)
 data/            Sample restaurant data
-lib/             Types, demo auth, reservation helpers and hooks
-public/          Static files (health.html for the load balancer)
+lib/             Types, validation, schedules, demo auth, reservation helpers and hooks
+public/          Static files (carousel photos, health.html for the load balancer)
+docs/            Architecture diagram and screenshots
 .github/         GitHub Actions workflow
 ```
 
@@ -89,11 +107,34 @@ The EC2 instances behind the load balancer sync the files from S3 every minute, 
 
 See [docs/architecture.md](docs/architecture.md) for the AWS diagram and a description of each component.
 
+## Screenshots
+
+| Landing | Reservation |
+|---|---|
+| ![Landing](docs/screenshots/landing.png) | ![Reservation](docs/screenshots/reservation.png) |
+
+| Panel | Mobile |
+|---|---|
+| ![Panel](docs/screenshots/panel.png) | ![Mobile](docs/screenshots/mobile.png) |
+
+| Deploy in GitHub Actions | Load balancer targets |
+|---|---|
+| ![Deploy](docs/screenshots/deploy.png) | ![Load balancer](docs/screenshots/load-balancer.png) |
+
+## Resources
+
+- [Next.js static exports](https://nextjs.org/docs/app/guides/static-exports)
+- [GitHub Actions documentation](https://docs.github.com/en/actions)
+- [Amazon EC2 Auto Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
+- [Application Load Balancer](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+
 ## Team
 
 | Name | GitHub |
 |---|---|
 | Kennyc Hamburger | [@ClayTore](https://github.com/ClayTore) |
-| Susan | [@sacuna12](https://github.com/sacuna12) |
+| Susan Acuña | [@sacuna12](https://github.com/sacuna12) |
 
 Final project for *Buenas Prácticas en el Desarrollo de Software*, Universidad de la Costa (CUC).
